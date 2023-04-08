@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
@@ -21,41 +20,39 @@ let userSchema = object().shape({
     .required(),
 });
 
-export default class ContactForm extends Component {
-  handleSubmit = ({ name, number }, action) => {
+export default function ContactForm() {
+  const handleSubmit = ({ name, number }, action) => {
     this.props.onSubmit(nanoid(), name, number);
     action.resetForm();
   };
 
-  render() {
-    return (
-      <Formik
-        initialValues={initialValues}
-        onSubmit={this.handleSubmit}
-        validationSchema={userSchema}
-      >
-        <Form autoComplete="off">
-          <label>
-            <p>Name</p>
-            <Field type="text" name="name" onFocus={this.className} />
-            <ErrorMessage component="p" className={css.nameError} name="name" />
-          </label>
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={userSchema}
+    >
+      <Form autoComplete="off">
+        <label>
+          <p>Name</p>
+          <Field type="text" name="name" />
+          <ErrorMessage component="p" className={css.nameError} name="name" />
+        </label>
 
-          <label>
-            <p>Number</p>
-            <Field type="tel" name="number" />
-            <ErrorMessage
-              component="p"
-              className={css.phoneError}
-              name="number"
-            />
-          </label>
-          <br></br>
-          <button type="submit">Add contact</button>
-        </Form>
-      </Formik>
-    );
-  }
+        <label>
+          <p>Number</p>
+          <Field type="tel" name="number" />
+          <ErrorMessage
+            component="p"
+            className={css.phoneError}
+            name="number"
+          />
+        </label>
+        <br></br>
+        <button type="submit">Add contact</button>
+      </Form>
+    </Formik>
+  );
 }
 
 ContactForm.propTypes = {

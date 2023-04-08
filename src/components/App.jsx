@@ -16,6 +16,7 @@ export default function App() {
   const visibleContacts = useMemo(() => {
     console.log('memo');
     const filterNormalize = filter.toLowerCase();
+    
     const visibleContacts = filter
       ? contacts.filter(contact =>
           contact.name.toLocaleLowerCase().includes(filterNormalize)
