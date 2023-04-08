@@ -5,7 +5,7 @@ import Filter from './Filter';
 import ContactList from './ContactList';
 import Notiflix from 'notiflix';
 
-export const App = () => {
+export default function App() {
   const [contacts, setContacts] = useState(
     () => JSON.parse(window.localStorage.getItem('contacts')) ?? contactsList
   );
@@ -61,6 +61,4 @@ export const App = () => {
       />
     </>
   );
-};
-
-export default App;
+}
