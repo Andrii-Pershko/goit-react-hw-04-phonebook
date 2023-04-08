@@ -41,7 +41,7 @@ export const App = () => {
     setFilter(e.target.value);
   };
 
-  //видаляє контакт
+  //видаляє контакт//
   const handleDeleteContact = e => {
     const deleteSelectContact = contacts.filter(
       contact => contact.id !== e.target.id
