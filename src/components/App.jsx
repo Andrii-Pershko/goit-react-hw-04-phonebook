@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import contactsList from 'backEnd_imitation/contacts';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
@@ -10,6 +10,19 @@ export const App = () => {
     () => JSON.parse(window.localStorage.getItem('contacts')) ?? contactsList
   );
   const [filter, setFilter] = useState('');
+
+  //visibleContacts формує відфільтрований список
+  // В даному додатку виконуватись буде при будь яких діях, але якщо буде контент незалежний від контактів то контакти не будуть перерендюватись.
+  const visibleContacts = useMemo(() => {
+    console.log('memo');
+    const filterNormalize = filter.toLowerCase();
+    const visibleContacts = filter
+      ? contacts.filter(contact =>
+          contact.name.toLocaleLowerCase().includes(filterNormalize)
+        )
+      : contacts;
+    return visibleContacts;
+  }, [contacts, filter]);
 
   useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -27,16 +40,7 @@ export const App = () => {
   const handleChangeFilter = e => {
     setFilter(e.target.value);
   };
-  //формує відфільтрований список
-  const visibleContacts = () => {
-    const filterNormalize = filter.toLowerCase();
-    const visibleContacts = filter
-      ? contacts.filter(contact =>
-          contact.name.toLocaleLowerCase().includes(filterNormalize)
-        )
-      : contacts;
-    return visibleContacts;
-  };
+
   //видаляє контакт
   const handleDeleteContact = e => {
     const deleteSelectContact = contacts.filter(
@@ -52,7 +56,7 @@ export const App = () => {
       <h2>Contacts</h2>
       <Filter onChange={handleChangeFilter} />
       <ContactList
-        contactList={visibleContacts()}
+        contactList={visibleContacts}
         onChange={handleDeleteContact}
       />
     </>
