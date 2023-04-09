@@ -21,6 +21,7 @@ let userSchema = object().shape({
 });
 
 export default function ContactForm() {
+  
   const handleSubmit = ({ name, number }, action) => {
     this.props.onSubmit(nanoid(), name, number);
     action.resetForm();
