@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
-export default function Filter({ onChange }) {
+export default function Filter({ onChange, filter }) {
   return (
     <>
       <p>Find contacts by name</p>
-      <input type="text" name="filter" onChange={onChange}></input>
+      <input type="text" value={filter} name="filter" onChange={onChange} />
     </>
   );
 }
