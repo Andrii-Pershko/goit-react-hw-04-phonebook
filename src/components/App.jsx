@@ -14,7 +14,6 @@ export default function App() {
   //visibleContacts формує відфільтрований список
   // В даному додатку виконуватись буде при будь яких діях, але якщо буде контент незалежний від контактів то контакти не будуть перерендюватись.
   const visibleContacts = useMemo(() => {
-    console.log('memo');
     const filterNormalize = filter.toLowerCase();
 
     const visibleContacts = filter

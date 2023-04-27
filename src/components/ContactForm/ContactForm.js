@@ -20,10 +20,9 @@ let userSchema = object().shape({
     .required(),
 });
 
-export default function ContactForm() {
-  
+export default function ContactForm({ onSubmit }) {
   const handleSubmit = ({ name, number }, action) => {
-    this.props.onSubmit(nanoid(), name, number);
+    onSubmit(nanoid(), name, number);
     action.resetForm();
   };
 
